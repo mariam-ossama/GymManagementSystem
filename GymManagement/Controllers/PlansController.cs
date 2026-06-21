@@ -28,15 +28,15 @@ namespace GymManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id, CancellationToken ct)
         {
-            var plan = await _planService.GetPlanDetailsByIdAsync(id, ct);
-            if (plan is null)
+            var result = await _planService.GetPlanDetailsByIdAsync(id, ct);
+
+            if (!result.success)
             {
+                TempData["ErrorMessage"] = result.error;
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                return View(plan);
-            }
+
+            return View(result.value);
         }
 
         // GET BaseUrl/Plans/Edit/{id}
@@ -44,13 +44,13 @@ namespace GymManagement.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id, CancellationToken ct)
         {
-            var plan = await _planService.GetPlanToUpdate(id, ct);
-            if (plan == null)
+            var result = await _planService.GetPlanToUpdate(id, ct);
+            if (!result.success)
             {
-                TempData["ErrorMessage"] = "Plan not found";
+                TempData["ErrorMessage"] = result.error;
                 return RedirectToAction(nameof(Index));
             }
-            return View(plan);
+            return View(result.value);
         }
 
         // POST BaseUrl/Plans/Edit {Member}
@@ -60,13 +60,13 @@ namespace GymManagement.Controllers
         {
             if (!ModelState.IsValid) return View(model);
             var result = await _planService.UpdatePlanDetailsAsync(id, model, ct);
-            if (result)
+            if (result.success)
             {
                 TempData["SuccessMessage"] = "Plan Updated Successfully";
             }
             else
             {
-                TempData["ErrorMessage"] = "Failed To Update Plan";
+                TempData["ErrorMessage"] = result.error;
             }
             return RedirectToAction(nameof(Index));
         }
@@ -77,14 +77,14 @@ namespace GymManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> Activate(int id, CancellationToken ct)
         {
-            var plan = await _planService.TogglePlanActivationAsync(id, ct);
-            if(plan)
+            var result = await _planService.TogglePlanActivationAsync(id, ct);
+            if(result.success)
             {
                 TempData["SuccessMessage"] = "Plan Status Changed Successfully";
             }
             else
             {
-                TempData["ErrorMessage"] = "Failed To Change Plan Status";
+                TempData["ErrorMessage"] = result.error;
             }
             return RedirectToAction(nameof(Index));
         }
