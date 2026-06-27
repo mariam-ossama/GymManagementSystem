@@ -72,7 +72,7 @@ namespace GymManagement.BLL.Services.Classes
             //var memberships = await _membershipRepository.GetAllAsync();
             //var activeMembership = memberships.FirstOrDefault(x => x.MemberId == memberId && x.EndDate > DateTime.Now);
 
-            var activeMembership = await _unitOfWork.GetRepository<MemberShip>().FirstOrDefaultAsync(x => x.MemberId == memberId && x.EndDate > DateTime.Now);
+            var activeMembership = await _unitOfWork.GetRepository<MemberShipViewModel>().FirstOrDefaultAsync(x => x.MemberId == memberId && x.EndDate > DateTime.Now);
 
             if(activeMembership is not null)
             {

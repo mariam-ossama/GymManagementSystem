@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GymManagement.DAL.Data.Models
 {
-    public class MemberShip : BaseEntity
+    public class MemberShipViewModel : BaseEntity
     {
         public Member Member { get; set; }
         public int MemberId { get; set; }

@@ -9,7 +9,7 @@
         public bool IsActive { get; set; }
 
         #region Relationships
-        public ICollection<MemberShip> PlanMembers { get; set; } = default!;
+        public ICollection<MemberShipViewModel> PlanMembers { get; set; } = default!;
         #endregion
     }
 }

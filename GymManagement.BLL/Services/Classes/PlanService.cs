@@ -63,7 +63,7 @@ namespace GymManagement.BLL.Services.Classes
             // Cannot update or deactivate a plan with active memberships
             if (plan.IsActive)
             {
-                var IsAnyemberships = await _unitOfWork.GetRepository<MemberShip>().AnyAsync(m => m.PlanId == planId && m.EndDate > DateTime.Now, ct);
+                var IsAnyemberships = await _unitOfWork.GetRepository<MemberShipViewModel>().AnyAsync(m => m.PlanId == planId && m.EndDate > DateTime.Now, ct);
                 if(IsAnyemberships) return Result.Validation("Cannot Deactivate a Plan with Membership");
             }
             // Update IsActive to true/false => make it reversible
@@ -84,7 +84,7 @@ namespace GymManagement.BLL.Services.Classes
             if (plan == null) return Result.NotFound("Plan Not Found");
             // Plan name cannot be updated
             // Cannot update or deactivate a plan with active memberships
-            var IsAnyemberships = await _unitOfWork.GetRepository<MemberShip>().AnyAsync(m => m.PlanId == id && m.EndDate > DateTime.Now,ct);
+            var IsAnyemberships = await _unitOfWork.GetRepository<MemberShipViewModel>().AnyAsync(m => m.PlanId == id && m.EndDate > DateTime.Now,ct);
             if (IsAnyemberships) return Result.Validation("Cannot Update or Deactivate a Plan With Active Memberships");
 
             _mapper.Map(model,plan);

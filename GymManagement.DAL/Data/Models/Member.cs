@@ -13,7 +13,7 @@ namespace GymManagement.DAL.Data.Models
 
         #region Relationships
         public HealthRecord HealthRecord { get; set; } = default!;
-        public ICollection<MemberShip> MemberShips { get; set; } = default!;
+        public ICollection<MemberShipViewModel> MemberShips { get; set; } = default!;
         public ICollection<Booking> MemberSessions { get; set; } = default!;
         #endregion
     }

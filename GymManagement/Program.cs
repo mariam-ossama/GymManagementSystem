@@ -30,6 +30,9 @@ namespace GymManagement
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
+            builder.Services.AddScoped<IMembershipService, MembershipService>();
+
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(config =>
             {
                 // Default

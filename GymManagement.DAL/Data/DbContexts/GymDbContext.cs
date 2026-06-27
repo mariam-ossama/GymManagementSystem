@@ -43,7 +43,7 @@ namespace GymManagement.DAL.Data.DbContexts
         public DbSet<Category> Categories { get; set; }
         public DbSet<Session> Sessions { get; set; }
         public DbSet<HealthRecord> HealthRecords { get; set; }
-        public DbSet<MemberShip> MemberShips { get; set; }
+        public DbSet<MemberShipViewModel> MemberShips { get; set; }
         public DbSet<Booking> Bookings { get; set; }
     }
 }

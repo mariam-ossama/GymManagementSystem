@@ -26,7 +26,7 @@ namespace GymManagement.BLL.Services.Classes
             var completedSessions = await _unitOfWork.GetRepository<Session>().CountAsync(s => s.EndDate <= now, ct);
             var totalMembers = await _unitOfWork.GetRepository<Member>().CountAsync(ct: ct);
             var totalTrainers = await _unitOfWork.GetRepository<Trainer>().CountAsync(ct: ct);
-            var activeMembers = await _unitOfWork.GetRepository<MemberShip>().CountAsync(x => x.EndDate > now, ct);
+            var activeMembers = await _unitOfWork.GetRepository<MemberShipViewModel>().CountAsync(x => x.EndDate > now, ct);
 
             return new AnalyticsViewModel()
             {

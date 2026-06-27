@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using GymManagement.BLL.ViewModels.MembershipViewModels;
 using GymManagement.BLL.ViewModels.MemberViewModels;
 using GymManagement.BLL.ViewModels.PlanViewModels;
 using GymManagement.BLL.ViewModels.SessionViewModel;
 using GymManagement.BLL.ViewModels.TrainerViewModels;
 using GymManagement.DAL.Data.Models;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace GymManagement.BLL
 {
@@ -23,6 +25,8 @@ namespace GymManagement.BLL
             MapPlan();
 
             MapTrainer();
+
+            MapMembership();
         }
 
         private void MapMember()
@@ -122,6 +126,20 @@ namespace GymManagement.BLL
                 .ForMember(dest => dest.Specialties, opt => opt.MapFrom(src => src.Speciality))
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => $"{src.Address.BuildingNumber} - {src.Address.Street} - {src.Address.City}"))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth.ToString("yyyy-MM-dd")));;
+        }
+
+        private void MapMembership()
+        {
+            CreateMap<MemberShipViewModel, Membership>()
+                .ForMember(dest => dest.MemberName, opt => opt.MapFrom(src => src.Member.Name))
+                .ForMember(dest => dest.PlanName, opt => opt.MapFrom(src => src.Plan.Name))
+                .ForMember(dest => dest.StartDate, opt => opt.MapFrom(src => src.CreatedAt));
+
+            CreateMap<CreateMembershipViewModel, Membership>();
+
+            CreateMap<Member, MemberSelectListViewModel>();
+
+            CreateMap<Plan, PlanSelectListViewModel>();
         }
     }
 }
